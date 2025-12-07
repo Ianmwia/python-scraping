@@ -51,3 +51,22 @@ print(product_price_url)
 response2 = requests.get(product_price_url, headers=headers)
 soup2 = BeautifulSoup(response.text, 'html.parser')
 
+#4. get price and name
+product_name = soup2.find_all('h3', class_='name')
+
+product_price = soup2.find_all('div', class_='prc')
+
+#print(product_name)
+#print(product_price)
+
+#save in a list
+products = []
+
+for i in range(len(product_name)):
+    p_name = product_name[i].get_text(strip=True)
+    p_price = product_price[i].get_text(strip=True)
+
+    products.append([p_name, p_price])
+
+print(products)
+
