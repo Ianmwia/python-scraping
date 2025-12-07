@@ -70,3 +70,17 @@ for i in range(len(product_name)):
 
 print(products)
 
+#5. save
+save_input = input('Want to save the products "yes" or "no: ')
+def save_or_not():
+    if save_input == "yes":
+        save_file_as = input('Enter a filename: ')
+        with open(save_file_as, 'w') as file:
+            for name, price in products:
+                file.write(f'{name} : {price}\n')
+        print(f'Your file has been saved as {save_file_as}')
+
+    else:
+        print('No file to be saved')
+save_or_not()
+
