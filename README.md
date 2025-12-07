@@ -8,6 +8,15 @@ This project is for scraping the Jumia website and finding the products in their
 
 ## How it works
 
+To begin make sure you have the required dependencis or install them
+
+To install
+
+```py
+python -m pip install requests
+python -m pip install beautifulsoup4
+```
+
 1. You will be requested to select a page to scrape from Jumia's own categories
 the app will then use the request to scrape data for the specific path
 
