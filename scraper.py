@@ -23,8 +23,6 @@ response = requests.get(product_url, headers=headers)
 soup = BeautifulSoup(response.text, 'html.parser')
 #print(soup.prettify())
 
-categories = []
-
 #1.find the href
 category_url = []
 jumia_href = soup.find_all('div', class_='_6c-shs') # use a unique selector if the first is common 
@@ -36,11 +34,20 @@ if jumia_href:
             category_url.append(category_href)
 print(category_url)
 
-#2. 
+#2. store in pair
+categories = {}
 
-# browse by category
-#select_a_category = input(f'select a category in the products page to scrape from: ')
+for url in category_url:
+    split_name = url.split('.ke')[1].split('/')[1]
+    categories[split_name] = url
+#print(categories)
 
-#scraping
-response = requests.get(BASE_URL, headers=headers)
-#print(response)
+#3. list of products and prices
+user_input_product = input(f'select a jumia product key to scrape from {list(categories.keys())}: ')
+
+product_price_url = categories.get(user_input_product)
+print(product_price_url)
+
+response2 = requests.get(product_price_url, headers=headers)
+soup2 = BeautifulSoup(response.text, 'html.parser')
+
