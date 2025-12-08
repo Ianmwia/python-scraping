@@ -56,20 +56,23 @@ product_name = soup2.find_all('h3', class_='name')
 
 product_price = soup2.find_all('div', class_='prc')
 product_rating = soup2.find_all('div', class_='_s')
+product_discount = soup2.find_all('div', class_='_sm')
 
 #print(product_name)
 #print(product_price)
-print(len(product_rating))
+#print(len(product_rating))
+print(len(product_discount))
 
 #save in a list
 products = []
 
-for n, p, r in zip(product_name, product_price, product_rating):
+for n, p, r, d in zip(product_name, product_price, product_rating, product_discount):
     p_name = n.get_text(strip=True)
     p_price = p.get_text(strip=True)
     p_rating = r.get_text(strip=True)
+    p_discount = d.get_text(strip=True)
 
-    products.append([p_name, p_price, p_rating])
+    products.append([p_name, p_price, p_rating, p_discount])
 
 print(products)
 
@@ -79,8 +82,8 @@ def save_or_not():
     if save_input == "yes":
         save_file_as = input('Enter a filename: ')
         with open(save_file_as, 'w') as file:
-            for name, price, rating in products:
-                file.write(f'{name} , {price} , {rating}\n')
+            for name, price, rating, discount in products:
+                file.write(f'{name} , {price} , {rating}, {discount}%\n')
         print(f'Your file has been saved as {save_file_as}')
 
     else:
