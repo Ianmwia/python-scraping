@@ -55,18 +55,21 @@ soup2 = BeautifulSoup(response.text, 'html.parser')
 product_name = soup2.find_all('h3', class_='name')
 
 product_price = soup2.find_all('div', class_='prc')
+product_rating = soup2.find_all('div', class_='_s')
 
 #print(product_name)
 #print(product_price)
+print(len(product_rating))
 
 #save in a list
 products = []
 
-for i in range(len(product_name)):
-    p_name = product_name[i].get_text(strip=True)
-    p_price = product_price[i].get_text(strip=True)
+for n, p, r in zip(product_name, product_price, product_rating):
+    p_name = n.get_text(strip=True)
+    p_price = p.get_text(strip=True)
+    p_rating = r.get_text(strip=True)
 
-    products.append([p_name, p_price])
+    products.append([p_name, p_price, p_rating])
 
 print(products)
 
@@ -76,8 +79,8 @@ def save_or_not():
     if save_input == "yes":
         save_file_as = input('Enter a filename: ')
         with open(save_file_as, 'w') as file:
-            for name, price in products:
-                file.write(f'{name} : {price}\n')
+            for name, price, rating in products:
+                file.write(f'{name} , {price} , {rating}\n')
         print(f'Your file has been saved as {save_file_as}')
 
     else:
